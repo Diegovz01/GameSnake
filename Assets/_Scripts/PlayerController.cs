@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Serpiente : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    public Text Points;
-    int points = 0;
+    Points pointsAdd;
     public GameObject Block;
     public GameObject Item;
     public GameObject Stage;
@@ -30,7 +29,11 @@ public class Serpiente : MonoBehaviour
     {
         map = new TypeBox[Width, High];
         CreateWalls();
+        pointsAdd = GameObject.Find("Canvas_Points").GetComponent<Points>();
+    }
 
+    public void StartMoveGame()
+    {
         int positionInitialX = Width / 2;
         int positionInitialY = High / 2;
 
@@ -41,12 +44,6 @@ public class Serpiente : MonoBehaviour
         head = NewBlock(positionInitialX, positionInitialY);
         InstanceItemRandomPosition();
         StartCoroutine(Movement());
-    }
-
-    private void AddPoints()
-    {
-        points++;
-        Points.text = points.ToString();
     }
 
     private void InstanceItemRandomPosition()
@@ -110,7 +107,7 @@ public class Serpiente : MonoBehaviour
                 {
                     bodyPart = NewBlock(newPosition.x, newPosition.y);
                     MoveItemPositionRandom();
-                    AddPoints();
+                    pointsAdd.AddPoints();
                 }
                 else
                 {
@@ -180,13 +177,16 @@ public class Serpiente : MonoBehaviour
 
     private void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 directionSelected = new Vector3(horizontal, vertical);
-
-        if (directionSelected != Vector3.zero)
+        if (GameManager.sharedInstance.currentGameState == GameState.inGame)
         {
-            direction = directionSelected;
+            float horizontal = Input.GetAxisRaw("Horizontal");
+            float vertical = Input.GetAxisRaw("Vertical");
+            Vector3 directionSelected = new Vector3(horizontal, vertical);
+
+            if (directionSelected != Vector3.zero)
+            {
+                direction = directionSelected;
+            }
         }
     }
 }
