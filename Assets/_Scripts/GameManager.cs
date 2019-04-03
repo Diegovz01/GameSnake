@@ -6,14 +6,14 @@ using UnityEngine;
 // State game
 public enum GameState
 {
-    menu, inGame, gameOver
+    start, menu, inGame, gameOver
 }
 
 public class GameManager : MonoBehaviour
 {
     PlayerController playerController;
     // Call state
-    public GameState currentGameState = GameState.menu;
+    public GameState currentGameState = GameState.start;
 
     // Singleton
     public static GameManager sharedInstance;
@@ -54,6 +54,10 @@ public class GameManager : MonoBehaviour
     {
         SetGameState(GameState.menu);
     }
+    public void BackToStart()
+    {
+        SetGameState(GameState.start);
+    }
 
     private void SetGameState(GameState newGameState)
     {
@@ -74,6 +78,10 @@ public class GameManager : MonoBehaviour
         {
             MenuManager.sharedInstance.ShowGameOver();
             Debug.Log("State Gameover");
+        }else if(newGameState == GameState.start)
+        {
+            MenuManager.sharedInstance.ShowStart();
+            Debug.Log("State Start");
         }
         this.currentGameState = newGameState;
     }

@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     }
     TypeBox[,] map;
 
-    private void Awake()
+    public void Awake()
     {
         map = new TypeBox[Width, High];
         CreateWalls();
@@ -97,7 +97,8 @@ public class PlayerController : MonoBehaviour
             {
                 Dead();
                 yield return new WaitForSeconds(3);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                GameManager.sharedInstance.GameOver();
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 yield break;
             }
             else

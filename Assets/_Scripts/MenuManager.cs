@@ -9,6 +9,7 @@ public class MenuManager : MonoBehaviour
     public Canvas menuCanvas;
     public Canvas inGameCanvas;
     public Canvas gameOverCanvas;
+    public Canvas startCanvas;
 
     private void Awake() {
         if (sharedInstance == null)
@@ -26,6 +27,7 @@ public class MenuManager : MonoBehaviour
         menuCanvas.enabled = true;
         inGameCanvas.enabled = false;
         gameOverCanvas.enabled = false;
+        startCanvas.enabled = false;
     }
 
     // Enabled InGame
@@ -34,6 +36,7 @@ public class MenuManager : MonoBehaviour
         menuCanvas.enabled = false;
         inGameCanvas.enabled = true;
         gameOverCanvas.enabled = false;
+        startCanvas.enabled = false;
     }
 
     // Enabled GameOver
@@ -42,8 +45,17 @@ public class MenuManager : MonoBehaviour
         menuCanvas.enabled = false;
         inGameCanvas.enabled = false;
         gameOverCanvas.enabled = true;
+        startCanvas.enabled = false;
     }
 
+    // Enabled Start
+    public void ShowStart()
+    {
+        menuCanvas.enabled = false;
+        inGameCanvas.enabled = false;
+        gameOverCanvas.enabled = false;
+        startCanvas.enabled = true;
+    }
     // Exit Game
     public void ExitGame()
     {
